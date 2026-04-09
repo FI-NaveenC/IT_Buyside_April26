@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Derivatives — FundsIndia Advisor Series</title>
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --teal:#1D9E75; --teal-d:#0F6E56; --teal-l:#E1F5EE;
+  --coral:#D85A30; --coral-l:#FAECE7;
+  --blue:#378ADD; --blue-l:#E6F1FB;
+  --amber:#BA7517; --amber-l:#FAEEDA;
+  --purple:#534AB7; --purple-l:#EEEDFE;
+  --ink:#1a1209; --ink2:#3d3428; --ink3:#6b5f52;
+  --paper:#fdf8f0; --paper2:#f5efe3; --paper3:#e8dece;
+  --spine:#c8b99a;
+}
+html,body {
+  min-height:100vh;
+  background:#1e1208;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  overflow:hidden;
+  user-select:none;
+}
+.scene {
+  perspective:2000px;
+  perspective-origin:50% 42%;
+  display:flex; flex-direction:column;
+  align-items:center; gap:12px;
+}
+.book {
+  position:relative;
+  display:flex;
+  flex-shrink:0;
+}
+.book-shadow {
+  position:absolute; bottom:-14px; left:8%;
+  width:84%; height:14px;
+  background:radial-gradient(ellipse,rgba(0,0,0,0.5) 0%,transparent 80%);
+  filter:blur(4px); pointer-events:none;
+}
+.left-panel, .right-panel {
+  position:relative; width:50%; height:100%; overflow:hidden;
+}
+.left-panel { border-radius:6px 0 0 6px; box-shadow:-2px 0 12px rgba(0,0,0,0.3); }
+.right-panel { border-radius:0 6px 6px 0; box-shadow:2px 0 12px rgba(0,0,0,0.3); }
+.spine-line {
+  position:absolute; left:50%; top:0;
+  width:3px; height:100%;
+  transform:translateX(-50%);
+  background:linear-gradient(to right,#9a7a50,#d4b078,#9a7a50);
+  z-index:100; box-shadow:0 0 8px rgba(0,0,0,0.4); pointer-events:none;
+}
+.page-surface { position:absolute; inset:0; overflow:hidden; }
+
+/* CONTENT */
+.pc {
+  width:100%; height:100%;
+  background:var(--paper);
+  padding:clamp(10px,1.8vw,22px) clamp(10px,1.8vw,22px) clamp(18px,2.5vh,28px);
+  display:flex; flex-direction:column; overflow:hidden; position:relative;
+}
+.pc.verso { background:var(--paper2); }
+.pn { position:absolute; bottom:clamp(6px,1vw,12px); font-size:clamp(8px,0.85vw,10px); color:var(--ink3); letter-spacing:0.12em; }
+.pn.r { right:clamp(10px,1.5vw,18px); }
+.pn.l { left:clamp(10px,1.5vw,18px); }
+.rule { height:0.5px; background:var(--paper3); margin:clamp(4px,0.6vw,8px) 0; flex-shrink:0; }
+.rule-top { height:1px; background:linear-gradient(to right,transparent,var(--spine),transparent); margin-bottom:clamp(6px,1vw,12px); flex-shrink:0; }
+.sec { font-size:clamp(7px,0.8vw,9px); letter-spacing:0.18em; text-transform:uppercase; color:var(--teal); font-weight:500; margin-bottom:3px; flex-shrink:0; }
+.title { font-family:Georgia,'Times New Roman',serif; font-size:clamp(13px,2vw,22px); color:var(--ink); line-height:1.15; margin-bottom:clamp(5px,0.8vw,10px); flex-shrink:0; }
+.title em { color:var(--teal); font-style:italic; }
+.def-box { background:var(--teal-l); border-left:2px solid var(--teal); border-radius:0 5px 5px 0; padding:clamp(5px,0.8vw,10px) clamp(7px,1vw,12px); margin-bottom:clamp(4px,0.7vw,10px); flex-shrink:0; }
+.def-box p { font-size:clamp(8px,0.88vw,11px); color:var(--ink2); line-height:1.55; }
+.def-box .sub { font-size:clamp(7px,0.78vw,9px); color:var(--ink3); margin-top:3px; }
+.ag { display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(3px,0.4vw,5px); margin-bottom:clamp(4px,0.7vw,9px); flex-shrink:0; }
+.ac { background:var(--paper2); border:0.5px solid var(--paper3); border-radius:5px; padding:clamp(3px,0.5vw,6px) 3px; text-align:center; }
+.ac .ai { font-size:clamp(10px,1.3vw,14px); display:block; }
+.ac .al { font-size:clamp(7px,0.72vw,9px); color:var(--ink3); display:block; margin-top:1px; }
+.ig { display:grid; grid-template-columns:1fr 1fr; gap:clamp(4px,0.5vw,7px); flex:1; min-height:0; }
+.ic-card { background:var(--paper); border:0.5px solid var(--paper3); border-radius:5px; padding:clamp(5px,0.75vw,9px); display:flex; flex-direction:column; }
+.ic-card .nm { font-size:clamp(9px,0.95vw,11px); font-weight:500; color:var(--ink); margin-bottom:2px; }
+.ic-card .dc { font-size:clamp(7px,0.82vw,10px); color:var(--ink3); line-height:1.5; flex:1; }
+.tag { display:inline-block; font-size:clamp(6px,0.7vw,8px); padding:2px 6px; border-radius:20px; font-weight:500; margin-top:3px; }
+.tb { background:var(--blue-l); color:#185FA5; }
+.tt { background:var(--teal-l); color:var(--teal-d); }
+.ta { background:var(--amber-l); color:#854F0B; }
+.tc { background:var(--coral-l); color:#993C1D; }
+.tp { background:var(--purple-l); color:#3C3489; }
+.tg { background:var(--paper3); color:var(--ink3); }
+.us { margin-bottom:clamp(5px,0.8vw,10px); flex-shrink:0; }
+.uh { display:flex; align-items:center; gap:6px; margin-bottom:3px; }
+.ui { width:clamp(20px,2.5vw,28px); height:clamp(20px,2.5vw,28px); border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:clamp(10px,1.2vw,13px); flex-shrink:0; }
+.ui.sh { background:var(--teal-l); }
+.ui.sc { background:var(--amber-l); }
+.ui.ro { background:var(--blue-l); }
+.ut { font-size:clamp(9px,1vw,12px); font-weight:500; color:var(--ink); }
+.us2 { font-size:clamp(7px,0.78vw,9px); color:var(--ink3); }
+.ub { font-size:clamp(8px,0.85vw,10px); color:var(--ink3); line-height:1.55; padding-left:clamp(22px,3vw,34px); }
+.eg { background:var(--paper2); border-left:2px solid var(--paper3); border-radius:0 4px 4px 0; padding:4px 7px; margin-top:3px; margin-left:clamp(22px,3vw,34px); font-size:clamp(7px,0.75vw,9px); color:var(--ink3); line-height:1.5; }
+.eg strong { color:var(--ink2); font-weight:500; }
+.sp { display:grid; grid-template-columns:1fr 1fr; gap:clamp(5px,0.8vw,10px); margin-bottom:clamp(6px,1vw,12px); flex-shrink:0; }
+.sc-card { border:0.5px solid var(--paper3); border-radius:6px; padding:clamp(7px,1vw,12px); }
+.sc-card.lo { border-top:2px solid var(--blue); }
+.sc-card.ls { border-top:2px solid var(--coral); }
+.sl2 { font-size:clamp(6px,0.7vw,8px); letter-spacing:0.12em; text-transform:uppercase; font-weight:500; margin-bottom:2px; }
+.lo .sl2 { color:var(--blue); }
+.ls .sl2 { color:var(--coral); }
+.sn2 { font-family:Georgia,'Times New Roman',serif; font-size:clamp(12px,1.6vw,17px); color:var(--ink); margin-bottom:4px; }
+.sd2 { font-size:clamp(8px,0.85vw,10px); color:var(--ink3); line-height:1.5; margin-bottom:5px; }
+.st { display:flex; flex-direction:column; gap:3px; }
+.sr { display:flex; justify-content:space-between; font-size:clamp(7px,0.75vw,9px); border-bottom:0.5px solid var(--paper3); padding-bottom:2px; }
+.sr .sk { color:var(--ink3); }
+.sr .sv { font-weight:500; color:var(--ink2); text-align:right; max-width:55%; }
+.cn { background:var(--paper2); border-radius:5px; padding:clamp(6px,0.9vw,11px); font-size:clamp(8px,0.85vw,10px); color:var(--ink3); line-height:1.55; flex-shrink:0; }
+.cn strong { color:var(--ink2); font-weight:500; }
+.note { font-size:clamp(7px,0.8vw,10px); color:var(--ink3); line-height:1.6; flex-shrink:0; }
+.note strong { color:var(--ink2); font-weight:500; }
+.si { font-size:clamp(8px,0.85vw,10px); color:var(--ink3); line-height:1.6; margin-bottom:clamp(5px,0.7vw,8px); flex-shrink:0; }
+.si strong { color:var(--ink2); font-weight:500; }
+.rl { display:flex; flex-direction:column; gap:clamp(3px,0.5vw,6px); margin-bottom:clamp(5px,0.7vw,8px); flex-shrink:0; }
+.ri { display:flex; gap:6px; align-items:flex-start; background:var(--paper2); border-radius:5px; padding:clamp(4px,0.6vw,7px); }
+.rn { width:17px; height:17px; border-radius:50%; background:var(--teal); color:#fff; font-size:clamp(8px,0.82vw,10px); font-weight:500; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.rt { font-size:clamp(7px,0.78vw,9px); color:var(--ink3); line-height:1.5; }
+.rt strong { color:var(--ink2); font-weight:500; }
+.bp { display:grid; grid-template-columns:1fr 1fr; gap:clamp(4px,0.5vw,7px); margin-bottom:clamp(4px,0.6vw,7px); flex-shrink:0; }
+.bc2 { border:0.5px solid var(--paper3); border-radius:5px; padding:clamp(5px,0.75vw,9px); }
+.bi { font-size:clamp(12px,1.5vw,16px); margin-bottom:2px; }
+.bt { font-size:clamp(8px,0.88vw,11px); font-weight:500; color:var(--ink); margin-bottom:2px; }
+.bd { font-size:clamp(7px,0.75vw,9px); color:var(--ink3); line-height:1.5; }
+.cue { background:var(--teal-l); border-left:2px solid var(--teal); border-radius:0 5px 5px 0; padding:clamp(5px,0.75vw,9px) clamp(7px,1vw,11px); font-size:clamp(7px,0.78vw,9px); color:var(--teal-d); line-height:1.6; flex-shrink:0; }
+.sl-list { display:flex; flex-direction:column; gap:clamp(4px,0.6vw,7px); flex:1; min-height:0; overflow:hidden; }
+.slr { background:var(--paper2); border:0.5px solid var(--paper3); border-radius:5px; padding:clamp(5px,0.75vw,9px) clamp(7px,1vw,12px); display:flex; align-items:flex-start; gap:7px; }
+.slr .b { font-size:clamp(6px,0.7vw,8px); font-weight:500; padding:2px 6px; border-radius:20px; white-space:nowrap; flex-shrink:0; margin-top:1px; }
+.slr .inf { flex:1; min-width:0; }
+.slr .snn { font-size:clamp(8px,0.9vw,11px); font-weight:500; color:var(--ink); }
+.slr .sdd { font-size:clamp(7px,0.78vw,9px); color:var(--ink3); line-height:1.5; margin-top:1px; }
+.slr .smm { font-size:clamp(6px,0.72vw,8px); color:var(--ink3); margin-top:2px; }
+.slr .smm span { color:var(--ink2); font-weight:500; }
+.fn { background:var(--teal-l); border-left:2px solid var(--teal); border-radius:0 5px 5px 0; padding:clamp(5px,0.8vw,10px) clamp(7px,1vw,12px); font-size:clamp(7px,0.78vw,9px); color:var(--teal-d); line-height:1.55; flex-shrink:0; margin-top:clamp(4px,0.6vw,8px); }
+.cover {
+  width:100%; height:100%;
+  background:linear-gradient(140deg,#173324 0%,#0c1f12 55%,#1a2e18 100%);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:clamp(16px,3vw,36px); position:relative; overflow:hidden;
+}
+.cover::before {
+  content:''; position:absolute; inset:0;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(255,255,255,0.012) 40px,rgba(255,255,255,0.012) 41px),
+    repeating-linear-gradient(90deg,transparent,transparent 40px,rgba(255,255,255,0.012) 40px,rgba(255,255,255,0.012) 41px);
+}
+.cv-label { font-size:clamp(7px,0.8vw,9px); letter-spacing:0.25em; text-transform:uppercase; color:rgba(255,255,255,0.35); margin-bottom:clamp(8px,1.2vw,16px); position:relative; z-index:1; }
+.cv-title { font-family:Georgia,'Times New Roman',serif; font-size:clamp(18px,3.5vw,40px); color:#fff; text-align:center; line-height:1.1; position:relative; z-index:1; margin-bottom:clamp(4px,0.7vw,8px); }
+.cv-title em { color:#5DCAA5; font-style:italic; }
+.cv-sub { font-size:clamp(8px,0.9vw,11px); color:rgba(255,255,255,0.4); text-align:center; position:relative; z-index:1; margin-bottom:clamp(14px,2vw,24px); }
+.cv-div { width:36px; height:1px; background:rgba(255,255,255,0.2); margin:0 auto clamp(12px,1.8vw,20px); position:relative; z-index:1; }
+.cv-meta { display:flex; gap:clamp(14px,2vw,24px); position:relative; z-index:1; }
+.cv-badge { display:flex; flex-direction:column; align-items:center; gap:2px; }
+.cv-badge .cn2 { font-size:clamp(14px,2vw,22px); font-weight:500; color:#5DCAA5; font-family:Georgia,serif; }
+.cv-badge .cl { font-size:clamp(6px,0.7vw,8px); color:rgba(255,255,255,0.35); letter-spacing:0.1em; text-transform:uppercase; }
+.cv-cta { position:absolute; bottom:clamp(10px,1.5vw,18px); right:clamp(12px,1.8vw,20px); font-size:clamp(7px,0.78vw,9px); color:rgba(255,255,255,0.3); letter-spacing:0.15em; text-transform:uppercase; animation:pulse 2.5s ease-in-out infinite; }
+@keyframes pulse{0%,100%{opacity:0.25}50%{opacity:0.65}}
+.blank { width:100%; height:100%; background:var(--paper2); }
+.back-cover { width:100%; height:100%; background:linear-gradient(140deg,#0c1f12 0%,#173324 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; }
+.bc-logo { font-family:Georgia,serif; font-size:clamp(16px,2.5vw,28px); color:#5DCAA5; margin-bottom:6px; }
+.bc-tag { font-size:clamp(7px,0.8vw,9px); color:rgba(255,255,255,0.3); letter-spacing:0.15em; text-transform:uppercase; }
+
+/* FLIPPER */
+.flipper {
+  position:absolute; top:0;
+  width:50%; height:100%;
+  transform-style:preserve-3d;
+  z-index:50; pointer-events:none; display:none;
+}
+.flipper.active { display:block; }
+.flp-front, .flp-back {
+  position:absolute; inset:0; overflow:hidden;
+  backface-visibility:hidden; -webkit-backface-visibility:hidden;
+}
+.flp-back { transform:rotateY(180deg); }
+
+/* CONTROLS */
+.controls { display:flex; align-items:center; gap:14px; z-index:100; }
+.btn { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.13); color:rgba(255,255,255,0.75); font-family:'DM Sans',sans-serif; font-size:clamp(10px,1.1vw,13px); padding:7px 20px; border-radius:30px; cursor:pointer; transition:all 0.2s; letter-spacing:0.03em; }
+.btn:hover:not(:disabled) { background:rgba(255,255,255,0.15); color:#fff; }
+.btn:disabled { opacity:0.2; cursor:default; }
+.btn.primary { background:var(--teal); border-color:var(--teal); color:#fff; }
+.btn.primary:hover:not(:disabled) { background:var(--teal-d); }
+.pips { display:flex; gap:5px; align-items:center; }
+.pip { width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,0.18); cursor:pointer; transition:all 0.2s; }
+.pip.active { background:var(--teal); width:16px; border-radius:3px; }
+.pg-label { font-size:clamp(8px,0.85vw,10px); color:rgba(255,255,255,0.3); letter-spacing:0.08em; text-align:center; min-height:14px; }
+</style>
+</head>
+<body>
+<div class="scene">
+  <div class="book" id="book">
+    <div class="book-shadow"></div>
+    <div class="spine-line"></div>
+    <div class="left-panel"><div class="page-surface" id="leftSurface"></div></div>
+    <div class="right-panel"><div class="page-surface" id="rightSurface"></div></div>
+    <div class="flipper" id="flipper">
+      <div class="flp-front" id="flipFront"></div>
+      <div class="flp-back" id="flipBack"></div>
+    </div>
+  </div>
+  <div class="pg-label" id="pgLabel">Tap right side to open</div>
+  <div class="controls">
+    <button class="btn" id="prevBtn" onclick="turn(-1)" disabled>← Prev</button>
+    <div class="pips" id="pips"></div>
+    <button class="btn primary" id="nextBtn" onclick="turn(1)">Open →</button>
+  </div>
+</div>
+
+<script>
+const spreads = [
+  {
+    left:`<div class="cover"><div class="cv-label">FundsIndia · Advisor Education Series</div><div class="cv-title">Understanding<br><em>Derivatives</em></div><div class="cv-sub">A complete guide for wealth advisors</div><div class="cv-div"></div><div class="cv-meta"><div class="cv-badge"><span class="cn2">5</span><span class="cl">Chapters</span></div><div class="cv-badge"><span class="cn2">6</span><span class="cl">Strategies</span></div><div class="cv-badge"><span class="cn2">SIF</span><span class="cl">Focus</span></div></div><div class="cv-cta">tap right to open →</div></div>`,
+    right:`<div class="blank"></div>`
+  },
+  {
+    left:`<div class="pc"><div class="rule-top"></div><div class="sec">Chapter 01 · Fundamentals</div><div class="title">What is a <em>Derivative</em>?</div><div class="def-box"><p>A derivative is a financial contract whose value is <strong>derived from an underlying asset</strong> — it has no intrinsic value of its own. The contract defines a future obligation or right based on price movements of that underlying.</p><p class="sub">Think of it as a commitment on where a price will go — without necessarily owning the asset.</p></div><div class="ag"><div class="ac"><span class="ai">📈</span><span class="al">Equities</span></div><div class="ac"><span class="ai">🏦</span><span class="al">Indices</span></div><div class="ac"><span class="ai">💱</span><span class="al">Currency</span></div><div class="ac"><span class="ai">🛢</span><span class="al">Commodities</span></div></div><div class="rule"></div><div style="font-size:clamp(7px,0.8vw,9px);color:var(--ink3);margin-bottom:6px;font-weight:500;letter-spacing:0.08em;">KEY INSTRUMENTS</div><div class="ig"><div class="ic-card"><div class="nm">Futures</div><div class="dc">Obligation to buy/sell at a fixed price on a future date. Both parties are bound.</div><span class="tag tb">Exchange traded</span></div><div class="ic-card"><div class="nm">Options</div><div class="dc">Right, not obligation, to buy (Call) or sell (Put) before expiry. Buyer pays premium.</div><span class="tag tt">Right, not duty</span></div><div class="ic-card"><div class="nm">Swaps</div><div class="dc">OTC agreement to exchange cash flows — interest rate or currency — over time.</div><span class="tag ta">OTC / institutional</span></div><div class="ic-card"><div class="nm">Forwards</div><div class="dc">Like futures but customised, traded OTC. Used heavily in currency markets.</div><span class="tag tc">Customisable</span></div></div><div class="pn l">1</div></div>`,
+    right:`<div class="pc verso"><div class="rule-top"></div><div class="sec">Chapter 02 · Applications</div><div class="title">Three <em>Purposes</em> of Derivatives</div><div class="us"><div class="uh"><div class="ui sh">🛡</div><div><div class="ut">Hedging — Protect what you own</div><div class="us2">Risk reduction · Insurance-like behaviour</div></div></div><div class="ub">Using derivatives to offset potential losses in an existing portfolio. The goal is not profit — it is loss prevention.</div><div class="eg"><strong>Example:</strong> Fund holds ₹10 Cr in Nifty stocks. Buys Nifty Puts. Market drops 10% — puts gain value, partially offsetting portfolio loss.</div></div><div class="rule"></div><div class="us"><div class="uh"><div class="ui sc">⚖</div><div><div class="ut">Arbitrage — Exploit price gaps</div><div class="us2">Risk-free profit · Market inefficiency capture</div></div></div><div class="ub">Simultaneously buy and sell the same asset across two markets where prices differ. Helps maintain price efficiency.</div><div class="eg"><strong>Example:</strong> Nifty spot ₹22,000, futures ₹22,150. Buy spot, sell futures — lock ₹150 as near risk-free return at expiry.</div></div><div class="rule"></div><div class="us"><div class="uh"><div class="ui ro">🚀</div><div><div class="ut">Speculation — Amplify directional bets</div><div class="us2">High risk · High reward · Leverage-driven</div></div></div><div class="ub">Take a view on price direction without owning the underlying. Leverage amplifies gains and losses equally.</div><div class="eg"><strong>Example:</strong> Buy Reliance Call at ₹5 premium. Sharp rise → option multiplies. Wrong direction → total loss of premium paid.</div></div><div class="pn r">2</div></div>`
+  },
+  {
+    left:`<div class="pc"><div class="rule-top"></div><div class="sec">Chapter 03 · Investment Strategies</div><div class="title">Long Only vs <em>Long Short</em></div><div class="sp"><div class="sc-card lo"><div class="sl2">Traditional</div><div class="sn2">Long Only</div><div class="sd2">Fund only buys securities. No short positions. Portfolio moves fully with the market — unprotected in bear markets.</div><div class="st"><div class="sr"><span class="sk">Direction</span><span class="sv">Up only</span></div><div class="sr"><span class="sk">Derivatives</span><span class="sv">Minimal / none</span></div><div class="sr"><span class="sk">Bear market</span><span class="sv">Full exposure</span></div><div class="sr"><span class="sk">Instruments</span><span class="sv">Stocks, MFs, ETFs</span></div></div></div><div class="sc-card ls"><div class="sl2">Sophisticated</div><div class="sn2">Long Short</div><div class="sd2">Holds long positions in expected winners and short positions in expected losers via F&amp;O. Can profit in both directions.</div><div class="st"><div class="sr"><span class="sk">Direction</span><span class="sv">Up + Down</span></div><div class="sr"><span class="sk">Derivatives</span><span class="sv">Central — F&amp;O</span></div><div class="sr"><span class="sk">Bear market</span><span class="sv">Managed / hedged</span></div><div class="sr"><span class="sk">Instruments</span><span class="sv">Stocks + Futures/Options</span></div></div></div></div><div class="cn"><strong>Net exposure matters.</strong> 80% long + 30% short = 50% net market exposure. A market-neutral fund targets ~0% net — alpha comes purely from stock-picking skill, not market direction.</div><div class="rule"></div><div class="note"><strong>Why it matters:</strong> Most Indian mutual funds are Long Only. SIF can now deploy Long Short strategies using SEBI-permitted derivatives — a structural shift for HNI portfolio management.</div><div class="pn l">3</div></div>`,
+    right:`<div class="pc verso"><div class="rule-top"></div><div class="sec">Chapter 04 · Regulatory Context</div><div class="title">Derivatives in SIF — <em>SEBI Framework</em></div><div class="si">SEBI's SIF regulations permit derivatives for two objectives only: <strong>generating additional alpha</strong> and <strong>reducing portfolio risk</strong> — not speculation.</div><div class="rl"><div class="ri"><div class="rn">1</div><div class="rt"><strong>Min investment ₹10 Lakhs.</strong> Designed for accredited investors — derivatives exposure is appropriate for this base.</div></div><div class="ri"><div class="rn">2</div><div class="rt"><strong>Long-short equity strategies permitted.</strong> Long equity + short F&amp;O positions allowed — enabling market-neutral portfolios.</div></div><div class="ri"><div class="rn">3</div><div class="rt"><strong>Exposure capped and disclosed.</strong> Gross derivative limits per strategy. All positions mandatorily reported. No hidden leverage.</div></div><div class="ri"><div class="rn">4</div><div class="rt"><strong>SEBI-registered AMC only.</strong> Requisite license and risk infrastructure required — institutional-grade management.</div></div></div><div class="bp"><div class="bc2"><div class="bi">📊</div><div class="bt">Additional Return</div><div class="bd">Short positions capture alpha from falling stocks — returns unavailable to long-only funds.</div></div><div class="bc2"><div class="bi">🔒</div><div class="bt">Lower Risk</div><div class="bd">Hedging reduces portfolio beta. Sharp corrections result in significantly lower drawdown.</div></div></div><div class="cue"><strong>Talking point:</strong> "SIF uses derivatives the way a surgeon uses a scalpel — precisely, under regulation — to protect capital and extract returns from both sides of the market."</div><div class="pn r">4</div></div>`
+  },
+  {
+    left:`<div class="pc"><div class="rule-top"></div><div class="sec">Chapter 05 · SIF Manager Playbook</div><div class="title">Strategies used by <em>SIF Managers</em></div><div class="sl-list"><div class="slr"><span class="b tc">Long Short Equity</span><div class="inf"><div class="snn">Buy winners, short losers simultaneously</div><div class="sdd">Long outperformers (equity), short underperformers (futures/puts). Alpha from the spread — not market direction.</div><div class="smm">Instruments: <span>Equity + Stock Futures</span> · Goal: <span>Alpha generation</span></div></div></div><div class="slr"><span class="b tb">Index Hedging</span><div class="inf"><div class="snn">Sell index futures to protect the portfolio</div><div class="sdd">Sell Nifty/BankNifty futures to neutralise beta without touching stock positions. No tax triggered.</div><div class="smm">Instruments: <span>Nifty Futures</span> · Goal: <span>Downside protection</span></div></div></div><div class="slr"><span class="b tt">Covered Call Writing</span><div class="inf"><div class="snn">Earn premium income on existing holdings</div><div class="sdd">Hold stock, sell call at higher strike. Premium = income. Best in sideways markets. Upside is capped.</div><div class="smm">Instruments: <span>Equity + Short Call</span> · Goal: <span>Income generation</span></div></div></div><div class="slr"><span class="b ta">Protective Put / Spread</span><div class="inf"><div class="snn">Buy insurance; reduce cost with a spread</div><div class="sdd">Buy put to cap downside. Put Spread (buy + sell lower strike) reduces premium cost. Protection sits between strikes.</div><div class="smm">Instruments: <span>Long Put / Put Spread</span> · Goal: <span>Tail risk protection</span></div></div></div><div class="slr"><span class="b tp">Cash-Futures Arbitrage</span><div class="inf"><div class="snn">Lock the basis spread as risk-free return</div><div class="sdd">Buy spot + sell futures when futures trade at premium. Prices converge at expiry — spread captured. Beats liquid funds.</div><div class="smm">Instruments: <span>Spot + Short Futures</span> · Goal: <span>Risk-free alpha</span></div></div></div><div class="slr"><span class="b tg">Dynamic Allocation</span><div class="inf"><div class="snn">Shift equity exposure via futures — no stock churn</div><div class="sdd">Market expensive → sell index futures to cut net exposure. Market corrects → cover futures. No stocks sold, no capital gains.</div><div class="smm">Instruments: <span>Index Futures</span> · Goal: <span>Tactical allocation</span></div></div></div></div><div class="fn"><strong>Advisor framing:</strong> SIF managers combine 2–3 of these — lower correlation, managed drawdowns, multiple return levers vs. plain mutual funds.</div><div class="pn l">5</div></div>`,
+    right:`<div class="back-cover"><div class="bc-logo">FundsIndia</div><div class="bc-tag">Advisor Education Series · Derivatives</div></div>`
+  }
+];
+
+let current = 0;
+const TOTAL = spreads.length;
+let animating = false;
+const labels = ['Cover · Tap right side to open','Ch.1 Fundamentals · Ch.2 Applications','Ch.3 Investment Strategies · Ch.4 SEBI Framework','Ch.5 SIF Manager Playbook'];
+
+function scaleToFit(surface) {
+  const pc = surface.querySelector('.pc');
+  if (!pc) return;
+  pc.style.transform = '';
+  pc.style.width = '100%';
+  pc.style.height = '100%';
+  pc.style.transformOrigin = 'top left';
+  const panelH = surface.offsetHeight;
+  const panelW = surface.offsetWidth;
+  const contentH = pc.scrollHeight;
+  const contentW = pc.scrollWidth;
+  const scale = Math.min(panelH / contentH, panelW / contentW, 1);
+  if (scale < 0.999) {
+    pc.style.width = (100 / scale) + '%';
+    pc.style.height = (100 / scale) + '%';
+    pc.style.transform = `scale(${scale})`;
+  }
+}
+
+function renderSpread(idx) {
+  const ls = document.getElementById('leftSurface');
+  const rs = document.getElementById('rightSurface');
+  ls.innerHTML = spreads[idx].left;
+  rs.innerHTML = spreads[idx].right;
+  requestAnimationFrame(() => { scaleToFit(ls); scaleToFit(rs); });
+}
+
+function buildPips() {
+  const c = document.getElementById('pips');
+  c.innerHTML = '';
+  for (let i=0;i<TOTAL;i++) {
+    const d=document.createElement('div');
+    d.className='pip'+(i===current?' active':'');
+    d.onclick=()=>jumpTo(i);
+    c.appendChild(d);
+  }
+}
+
+function updateUI() {
+  document.getElementById('pgLabel').textContent = labels[current];
+  document.getElementById('prevBtn').disabled = current===0;
+  document.getElementById('nextBtn').disabled = current===TOTAL-1;
+  document.getElementById('nextBtn').textContent = current===0?'Open →':(current===TOTAL-1?'Done':'Next →');
+  buildPips();
+}
+
+function turn(dir) {
+  if (animating) return;
+  const next = current+dir;
+  if (next<0||next>=TOTAL) return;
+  animating=true;
+
+  const flipper=document.getElementById('flipper');
+  const flipFront=document.getElementById('flipFront');
+  const flipBack=document.getElementById('flipBack');
+  flipper.style.transition='';
+
+  if (dir===1) {
+    flipper.style.left='50%';
+    flipper.style.transformOrigin='0% 50%';
+    flipper.style.transform='rotateY(0deg)';
+    flipFront.style.transform='';
+    flipFront.style.borderRadius='0 6px 6px 0';
+    flipFront.innerHTML = spreads[current].right;
+    flipBack.style.transform='rotateY(180deg) scaleX(-1)';
+    flipBack.style.borderRadius='6px 0 0 6px';
+    flipBack.innerHTML = spreads[next].left;
+    document.getElementById('leftSurface').innerHTML = spreads[next].left;
+    document.getElementById('rightSurface').innerHTML = spreads[next].right;
+    flipper.classList.add('active');
+    requestAnimationFrame(()=>{
+      scaleToFit(flipFront); scaleToFit(flipBack);
+      scaleToFit(document.getElementById('leftSurface'));
+      scaleToFit(document.getElementById('rightSurface'));
+      requestAnimationFrame(()=>{
+        flipper.style.transition='transform 0.72s cubic-bezier(0.645,0.045,0.355,1)';
+        flipper.style.transform='rotateY(-180deg)';
+      });
+    });
+  } else {
+    flipper.style.left='0';
+    flipper.style.transformOrigin='100% 50%';
+    flipper.style.transform='rotateY(0deg)';
+    flipFront.style.transform='';
+    flipFront.style.borderRadius='6px 0 0 6px';
+    flipFront.innerHTML = spreads[current].left;
+    flipBack.style.transform='rotateY(180deg) scaleX(-1)';
+    flipBack.style.borderRadius='0 6px 6px 0';
+    flipBack.innerHTML = spreads[next].right;
+    document.getElementById('leftSurface').innerHTML = spreads[next].left;
+    document.getElementById('rightSurface').innerHTML = spreads[next].right;
+    flipper.classList.add('active');
+    requestAnimationFrame(()=>{
+      scaleToFit(flipFront); scaleToFit(flipBack);
+      scaleToFit(document.getElementById('leftSurface'));
+      scaleToFit(document.getElementById('rightSurface'));
+      requestAnimationFrame(()=>{
+        flipper.style.transition='transform 0.72s cubic-bezier(0.645,0.045,0.355,1)';
+        flipper.style.transform='rotateY(180deg)';
+      });
+    });
+  }
+
+  setTimeout(()=>{
+    current=next;
+    flipper.classList.remove('active');
+    flipper.style.transition='';
+    renderSpread(current);
+    updateUI();
+    animating=false;
+  },740);
+}
+
+function jumpTo(idx) {
+  if (animating||idx===current) return;
+  turn(idx>current?1:-1);
+  if (Math.abs(idx-current)>1) setTimeout(()=>jumpTo(idx),800);
+}
+
+let tx=0;
+document.getElementById('book').addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+document.getElementById('book').addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  if (Math.abs(dx)>40) turn(dx<0?1:-1);
+},{passive:true});
+document.getElementById('book').addEventListener('click',e=>{
+  if (animating) return;
+  const rect=e.currentTarget.getBoundingClientRect();
+  turn(e.clientX-rect.left>rect.width/2?1:-1);
+});
+
+function sizeBook() {
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const RATIO = 1.4; // width/height of full spread
+  const CONTROLS_H = 70; // space for label + buttons
+  const GAP = 12;
+  const maxW = vw * 0.96;
+  const maxH = (vh - CONTROLS_H - GAP) * 0.92;
+  // Book width from height constraint
+  let bookW = Math.min(maxW, maxH * RATIO);
+  let bookH = bookW / RATIO;
+  const scene = document.querySelector('.scene');
+  const book = document.getElementById('book');
+  scene.style.width = bookW + 'px';
+  book.style.width = bookW + 'px';
+  book.style.height = bookH + 'px';
+}
+
+sizeBook();
+window.addEventListener('resize', () => { sizeBook(); rescaleAll(); });
+
+function rescaleAll() {
+  scaleToFit(document.getElementById('leftSurface'));
+  scaleToFit(document.getElementById('rightSurface'));
+}
+
+renderSpread(0);
+updateUI();
+</script>
+</body>
+</html>
