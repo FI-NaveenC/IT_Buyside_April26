@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Indian IT Sector — Buy-Side Research Report | April 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0c;
+    --ink-soft: #3a3834;
+    --ink-muted: #7a7670;
+    --paper: #f8f4ee;
+    --paper-dark: #ede8df;
+    --paper-rule: #d8d1c4;
+    --accent: #b84a1e;
+    --accent-light: #f0e0d6;
+    --green: #1a6b3c;
+    --green-light: #d6ede0;
+    --amber: #a05a00;
+    --amber-light: #fdf0da;
+    --blue: #1a4a7a;
+    --blue-light: #dceaf8;
+    --gold: #c8940a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 60px 72px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 420px; height: 100%;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent, transparent 18px,
+      rgba(255,255,255,0.025) 18px, rgba(255,255,255,0.025) 19px
+    );
+  }
+  .cover-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    line-height: 1.1;
+    font-weight: 700;
+    max-width: 640px;
+    margin-bottom: 12px;
+  }
+  .cover-title em { font-style: italic; color: var(--gold); }
+  .cover-subtitle {
+    font-size: 16px;
+    color: rgba(248,244,238,0.65);
+    max-width: 580px;
+    margin-bottom: 36px;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+  .cover-meta {
+    display: flex; gap: 48px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: rgba(248,244,238,0.5);
+    border-top: 1px solid rgba(248,244,238,0.15);
+    padding-top: 24px;
+    flex-wrap: wrap;
+  }
+  .cover-meta span { display: flex; flex-direction: column; gap: 4px; }
+  .cover-meta strong { color: var(--paper); font-size: 13px; }
+
+  /* ── LAYOUT ── */
+  .body-wrap { max-width: 900px; margin: 0 auto; padding: 0 40px 80px; }
+
+  /* ── SECTION HEADERS ── */
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 52px;
+    margin-bottom: 4px;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 10px;
+  }
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 700;
+    margin-top: 28px;
+    margin-bottom: 10px;
+  }
+  p { margin-bottom: 14px; font-size: 15px; color: var(--ink-soft); }
+  strong { color: var(--ink); font-weight: 600; }
+
+  /* ── THESIS BOX ── */
+  .thesis-box {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 28px 32px;
+    margin: 28px 0;
+    border-left: 4px solid var(--gold);
+  }
+  .thesis-box p { color: rgba(248,244,238,0.85); font-size: 16px; margin: 0; }
+  .thesis-box strong { color: var(--gold); }
+
+  /* ── RATING STRIP ── */
+  .rating-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--paper-rule);
+    border: 1px solid var(--paper-rule);
+    margin: 24px 0;
+  }
+  .rating-cell {
+    background: var(--paper);
+    padding: 16px 18px;
+  }
+  .rating-cell .label { font-size: 10px; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: 0.12em; color: var(--ink-muted); margin-bottom: 4px; }
+  .rating-cell .value { font-size: 20px; font-weight: 600; color: var(--ink); }
+  .rating-cell .value.buy { color: var(--green); }
+  .rating-cell .value.acc { color: var(--blue); }
+  .rating-cell .sub { font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
+
+  /* ── LAYER CARDS ── */
+  .layer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .layer-card {
+    border: 1px solid var(--paper-rule);
+    padding: 20px 22px;
+    background: var(--paper);
+  }
+  .layer-card .layer-icon { font-size: 22px; margin-bottom: 10px; }
+  .layer-card h4 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink); margin-bottom: 8px; }
+  .layer-card p { font-size: 13px; color: var(--ink-soft); margin: 0; line-height: 1.6; }
+  .layer-card.bull { border-top: 3px solid var(--green); }
+  .layer-card.bear { border-top: 3px solid var(--accent); }
+  .layer-card.neutral { border-top: 3px solid var(--amber); }
+
+  /* ── DATA TABLE ── */
+  table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px; }
+  thead tr { background: var(--ink); color: var(--paper); }
+  thead th { padding: 10px 14px; text-align: left; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.06em; font-weight: 500; }
+  tbody tr { border-bottom: 1px solid var(--paper-rule); }
+  tbody tr:hover { background: var(--paper-dark); }
+  tbody td { padding: 10px 14px; color: var(--ink-soft); vertical-align: top; }
+  tbody td strong { color: var(--ink); }
+  .tag-buy { background: var(--green-light); color: var(--green); font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; }
+  .tag-acc { background: var(--blue-light); color: var(--blue); font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 2px; font-family: 'IBM Plex Mono', monospace; }
+
+  /* ── STOCK CARDS ── */
+  .stock-card {
+    border: 1px solid var(--paper-rule);
+    margin: 32px 0;
+    background: var(--paper);
+  }
+  .stock-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    padding: 22px 26px 18px;
+    background: var(--paper-dark);
+    border-bottom: 1px solid var(--paper-rule);
+    gap: 20px;
+  }
+  .stock-name { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 3px; }
+  .stock-sub { font-size: 12px; font-family: 'IBM Plex Mono', monospace; color: var(--ink-muted); letter-spacing: 0.05em; }
+  .stock-badge { text-align: right; }
+  .stock-rating { display: inline-block; padding: 5px 14px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; }
+  .stock-rating.buy { background: var(--green); color: white; }
+  .stock-rating.accumulate { background: var(--blue); color: white; }
+  .stock-cmp { font-size: 20px; font-weight: 600; margin-top: 6px; }
+  .stock-target { font-size: 12px; color: var(--ink-muted); font-family: 'IBM Plex Mono', monospace; }
+  .stock-body { padding: 22px 26px; }
+  .stock-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--paper-rule); border: 1px solid var(--paper-rule); margin-bottom: 20px; }
+  .metric { background: var(--paper); padding: 12px 14px; }
+  .metric .m-label { font-size: 10px; font-family: 'IBM Plex Mono', monospace; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+  .metric .m-val { font-size: 17px; font-weight: 600; color: var(--ink); }
+  .metric .m-sub { font-size: 11px; color: var(--ink-muted); margin-top: 1px; }
+  .bull-bear { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+  .bb-col h5 { font-size: 11px; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px; }
+  .bb-col.bull h5 { color: var(--green); }
+  .bb-col.bear h5 { color: var(--accent); }
+  .bb-col ul { list-style: none; }
+  .bb-col ul li { font-size: 13px; color: var(--ink-soft); padding: 4px 0; border-bottom: 1px solid var(--paper-rule); line-height: 1.5; }
+  .bb-col ul li::before { content: '→ '; color: var(--ink-muted); }
+
+  /* ── RISK SECTION ── */
+  .risk-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 20px 0; }
+  .risk-card { background: var(--accent-light); border-left: 3px solid var(--accent); padding: 14px 16px; }
+  .risk-card h5 { font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .risk-card p { font-size: 12px; margin: 0; color: var(--ink-soft); line-height: 1.5; }
+
+  /* ── VALUATION TABLE ── */
+  .val-note { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--ink-muted); margin-top: 8px; }
+
+  /* ── DISCLAIMER ── */
+  .disclaimer {
+    border-top: 1px solid var(--paper-rule);
+    margin-top: 60px;
+    padding-top: 20px;
+    font-size: 11px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* ── DIVIDER ── */
+  .rule { border: none; border-top: 1px solid var(--paper-rule); margin: 32px 0; }
+
+  .upside-pill {
+    display: inline-block;
+    background: var(--green-light);
+    color: var(--green);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    margin-left: 8px;
+    border-radius: 2px;
+  }
+  .horizon-pill {
+    display: inline-block;
+    background: var(--amber-light);
+    color: var(--amber);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    margin-left: 4px;
+    border-radius: 2px;
+  }
+
+  @media(max-width:680px) {
+    .cover { padding: 40px 28px 36px; }
+    .cover-title { font-size: 34px; }
+    .body-wrap { padding: 0 20px 60px; }
+    .layer-grid, .stock-header, .bull-bear, .risk-grid { grid-template-columns: 1fr; }
+    .stock-metrics { grid-template-columns: 1fr 1fr; }
+    .rating-strip { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-eyebrow">Buy-Side Research Report · Equity · India IT Sector · April 9, 2026</div>
+  <div class="cover-title">Indian IT:<br><em>After the Storm</em></div>
+  <div class="cover-subtitle">A comprehensive buy-side analysis of the Nifty IT Index and five high-conviction stock ideas across a 3–10 year investment horizon. Covering the AI transformation layer, US macro headwinds, and India's structural tech tailwinds.</div>
+  <div class="cover-meta">
+    <span><strong>Index Coverage</strong>Nifty IT (CNXIT)</span>
+    <span><strong>Current Index</strong>~31,400</span>
+    <span><strong>3-yr Target</strong>46,000–52,000</span>
+    <span><strong>Analyst View</strong>Constructive / OW</span>
+    <span><strong>Report Date</strong>April 9, 2026</span>
+  </div>
+</div>
+
+<div class="body-wrap">
+
+  <!-- EXECUTIVE SUMMARY -->
+  <div class="section-label">01 · Executive Summary</div>
+  <h2>Investment Thesis</h2>
+
+  <div class="thesis-box">
+    <p>The Indian IT sector has corrected 22–25% in FY26 on fears that generative AI will displace traditional IT services. We believe this fear is <strong>overpriced in the near term and underestimates the Indian IT industry's capacity to re-platform itself.</strong> At 17.8x forward P/E — 16% below the 10-year average — the sector is pricing in a structural decline that the deal data does not yet support. The Nifty IT Index is a <strong>tactical Buy at current levels</strong> for a 3-year horizon and a <strong>strategic Accumulate</strong> for 10-year investors building positions through volatility.</p>
+  </div>
+
+  <div class="rating-strip">
+    <div class="rating-cell">
+      <div class="label">Index Rating</div>
+      <div class="value buy">OVERWEIGHT</div>
+      <div class="sub">3–10 yr horizon</div>
+    </div>
+    <div class="rating-cell">
+      <div class="label">Current Level</div>
+      <div class="value">31,400</div>
+      <div class="sub">Nifty IT (Apr 9, 2026)</div>
+    </div>
+    <div class="rating-cell">
+      <div class="label">3-yr Target</div>
+      <div class="value">46,000–52,000</div>
+      <div class="sub">+46–65% upside</div>
+    </div>
+    <div class="rating-cell">
+      <div class="label">10-yr Target</div>
+      <div class="value">1,10,000+</div>
+      <div class="sub">~13% CAGR thesis</div>
+    </div>
+  </div>
+
+  <!-- MACRO LAYERS -->
+  <div class="section-label">02 · Investment Layers</div>
+  <h2>The Three-Layer Framework</h2>
+
+  <h3>Layer 1 — The AI Transformation: Threat or Opportunity?</h3>
+  <p>The central question hanging over Indian IT is whether generative AI accelerates or cannibalises the sector's revenue model. Our read is that the answer is <strong>both, at different time horizons.</strong> Near-term (FY26–FY28), AI deflation is real — HCL Tech's own CEO has modelled a 2–3% annual deflationary impact on services. Longer-term (FY28–FY35), the AI opportunity is vastly larger than the disruption. NASSCOM has identified a $300–400 billion incremental TAM by 2030, with AI services alone pegged at $10–12 billion in FY26 revenue — growing at 20%+ QoQ.</p>
+  <p>The key insight: <strong>Indian IT companies are not just consumers of AI disruption — they are becoming distributors of it.</strong> TCS crossed $2.3 billion in annualised AI revenues in Q4FY26. Infosys has an AI partnership with Anthropic. Persistent and Coforge are winning mid-market AI transformation mandates at rates that dwarf their Tier-1 peers. The sector is re-platforming faster than the market is pricing.</p>
+
+  <div class="layer-grid">
+    <div class="layer-card bull">
+      <div class="layer-icon">↑</div>
+      <h4>AI Bull Case (FY28–35)</h4>
+      <p>Indian IT becomes the implementation layer of the global AI stack. As global enterprises move from AI pilots to industrial-scale deployment, Indian IT firms — with their deep client relationships, change management expertise, and offshore delivery — are the natural execution partner. A $300–400B incremental TAM by 2030 with even 15% capture = $45–60B in new revenue for the sector.</p>
+    </div>
+    <div class="layer-card bear">
+      <div class="layer-icon">↓</div>
+      <h4>AI Bear Case (FY26–28)</h4>
+      <p>AI-driven coding automation (GitHub Copilot, Cursor, Claude Code) compresses effort-based billing. Headcount-linked revenue models face structural pricing pressure. Renewal contracts face 2–3% annual deflation as clients demand AI productivity pass-through. Revenue recovery from FY28-end onward; near-term earnings revisions remain a drag on multiples.</p>
+    </div>
+  </div>
+
+  <h3>Layer 2 — US Macro Headwinds</h3>
+  <p>The United States accounts for ~50–55% of Tier-1 Indian IT revenues. Three headwinds are active simultaneously: (1) A potential US slowdown — the Fed has trimmed its GDP growth forecast to 1.4–1.7%, the slowest pace ex-pandemic in a decade — which constrains discretionary IT budgets; (2) H-1B visa uncertainty and protectionist policy risk; and (3) the West Asia conflict creating broader risk-off sentiment that delays CIO decision cycles.</p>
+
+  <div class="layer-grid">
+    <div class="layer-card bear">
+      <div class="layer-icon">↓</div>
+      <h4>US Headwind 1: Macro Slowdown</h4>
+      <p>US GDP growth forecast cut to 1.4–1.7%. BFSI and retail IT budgets tighten first. Large outsourcing contracts face scrutiny. Discretionary spends (cloud modernisation, digital transformation) face delay. Historically, every 100 bps decline in US GDP growth = ~150 bps impact on Indian IT revenue growth.</p>
+    </div>
+    <div class="layer-card bear">
+      <div class="layer-icon">↓</div>
+      <h4>US Headwind 2: Visa & Policy Risk</h4>
+      <p>H-1B visa restrictions raise onsite delivery costs. Any reversal in offshoring policy — while unlikely to be structural — creates near-term noise. However, companies have been building delivery centres in the US, Canada, and nearshore LatAm to hedge this risk. Wipro's Harman acquisition reflects this trend.</p>
+    </div>
+    <div class="layer-card neutral">
+      <div class="layer-icon">→</div>
+      <h4>USD/INR: The Hidden Buffer</h4>
+      <p>The rupee fell ~9.88% in FY26 — the steepest annual decline in 14 years — hitting record lows above ₹94/$. Every 1% rupee depreciation adds ~30–40 bps to EBIT margins sector-wide. This currency tailwind is currently offsetting ~200–250 bps of revenue headwinds in rupee-reported earnings, which explains why PAT growth (12%+) is diverging from USD revenue growth (5–6%).</p>
+    </div>
+    <div class="layer-card bull">
+      <div class="layer-icon">↑</div>
+      <h4>US Recovery Setup (FY27–28)</h4>
+      <p>The Fed is in a cutting cycle. Lower rates historically trigger a 12–18 month lag in IT discretionary spend recovery. BFSI — still the largest vertical at ~32% of revenues — is showing early signs of revival. Deal pipelines for Tier-1 companies remain robust. TCS's $12B Q4 TCV is the strongest signal yet that enterprise conviction in technology investments is intact.</p>
+    </div>
+  </div>
+
+  <h3>Layer 3 — India's Structural Tech Tailwinds</h3>
+  <p>Beyond the US cycle, India's domestic technology tailwinds are creating a second growth engine that was almost entirely absent five years ago.</p>
+
+  <div class="layer-grid">
+    <div class="layer-card bull">
+      <div class="layer-icon">↑</div>
+      <h4>GCC Boom: The $110B Opportunity</h4>
+      <p>India's GCC count has grown from 1,700 in FY24 to 1,800+ and is projected to reach 2,400–2,500 by 2030, employing 3–4.5 million professionals. GCC revenues are forecast to hit $100–110B by 2030. Indian IT firms — especially Tier-2 — are significant beneficiaries as GCC setup, scaling, and transformation partners.</p>
+    </div>
+    <div class="layer-card bull">
+      <div class="layer-icon">↑</div>
+      <h4>Domestic IT Demand Outpacing Exports</h4>
+      <p>For the first time in Indian IT history, domestic revenues are projected to grow faster than exports. NASSCOM projects domestic revenues at $58.2B in FY25, growing at 7% — double the export growth rate. India Stack (UPI, ONDC, OCEN, Account Aggregator) is driving a FinTech and BFSI transformation that feeds Indian IT service companies directly.</p>
+    </div>
+    <div class="layer-card bull">
+      <div class="layer-icon">↑</div>
+      <h4>ER&D: The Premium Growth Segment</h4>
+      <p>Engineering, Research & Development exports from India are projected at $63B in FY26, growing faster than IT services. KPIT, LTTS, Tata Elxsi, and Persistent have significant ER&D exposure. The automotive electrification, semiconductor design, and aerospace digitisation cycles create a 10-year runway for ER&D-heavy Indian IT firms.</p>
+    </div>
+    <div class="layer-card bull">
+      <div class="layer-icon">↑</div>
+      <h4>Talent Cost Moat: Structural, Not Cyclical</h4>
+      <p>India's cost-competitiveness advantage — operations 40% cheaper than Eastern Europe, with deeper talent density — is not a transitional advantage. India produces 1.5M+ engineering graduates annually. As AI raises the skill floor globally, India's talent pool is actually becoming more valuable, not less, for complex AI integration work.</p>
+    </div>
+  </div>
+
+  <h3>Layer 4 — Valuation: A Decade-Low Entry</h3>
+  <p>Nifty IT's forward P/E at 17.8x is 16% below its 10-year average. Reverse DCF models indicate the market is currently embedding terminal growth rates of 3–4% — a figure consistent with a structural decline scenario, not a recovery. We believe the correct terminal rate for Indian IT, given GCC, ER&D, and AI service tailwinds, is closer to 8–10%. The gap between embedded assumptions and fundamental trajectory is the source of the investment opportunity.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>Current Level</th>
+        <th>10-yr Average</th>
+        <th>FY22 Peak</th>
+        <th>Assessment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Nifty IT Fwd P/E</td><td><strong>17.8x</strong></td><td>21x</td><td>36x</td><td>16% discount to LTA</td></tr>
+      <tr><td>TCS P/E</td><td><strong>19x</strong></td><td>26x</td><td>38x</td><td>Near 10-yr floor</td></tr>
+      <tr><td>Infosys P/E</td><td><strong>22x</strong></td><td>25x</td><td>35x</td><td>Moderate discount</td></tr>
+      <tr><td>Sector EPS CAGR (FY26–28E)</td><td><strong>10.8%</strong></td><td>—</td><td>—</td><td>Improving vs FY24–26</td></tr>
+      <tr><td>Dividend Yield (Sector)</td><td><strong>3.5–4.5%</strong></td><td>1.5%</td><td>0.8%</td><td>Multi-decade high</td></tr>
+    </tbody>
+  </table>
+
+  <!-- STOCK PICKS -->
+  <div class="section-label">03 · Stock Selection</div>
+  <h2>Five High-Conviction Ideas</h2>
+  <p>Our selection criteria: (1) positioned to capture AI services growth, not just defend against AI disruption; (2) clean balance sheet with high free cash flow conversion; (3) deal momentum evidenced by TCV data; (4) valuation offering a meaningful discount to fair value. We have deliberately chosen across size and style — large-cap stability, mid-cap growth, and one ER&D specialist.</p>
+
+  <!-- STOCK 1: TCS -->
+  <div class="stock-card">
+    <div class="stock-header">
+      <div>
+        <div class="stock-name">Tata Consultancy Services</div>
+        <div class="stock-sub">NSE: TCS · Large Cap · Tier-1 IT Services</div>
+      </div>
+      <div class="stock-badge">
+        <div><span class="stock-rating accumulate">ACCUMULATE</span></div>
+        <div class="stock-cmp">₹2,588</div>
+        <div class="stock-target">3-yr target: ₹3,400–3,600 &nbsp;|&nbsp; 10-yr: ₹7,000+</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="stock-metrics">
+        <div class="metric"><div class="m-label">Mkt Cap</div><div class="m-val">₹9.4L Cr</div><div class="m-sub">India's 2nd largest</div></div>
+        <div class="metric"><div class="m-label">Fwd P/E</div><div class="m-val">19x</div><div class="m-sub">10-yr low zone</div></div>
+        <div class="metric"><div class="m-label">Q4 TCV</div><div class="m-val">$12B</div><div class="m-sub">3 mega deals</div></div>
+        <div class="metric"><div class="m-label">AI Revenue</div><div class="m-val">$2.3B</div><div class="m-sub">Annualised, +28% QoQ</div></div>
+      </div>
+      <p>TCS is the anchor of any Indian IT portfolio — the most widely held tech bellwether globally among institutional investors. After a brutal 39% correction from its peak, the stock trades at the lowest forward multiple in nearly a decade. The Q4FY26 result — $12B TCV, 3 consecutive sequential growth quarters, $2.3B annualised AI revenue — marks a credible inflection. The Accumulate rather than Buy rating reflects the wage hike headwind entering Q1FY27 and the muted North America growth signal.</p>
+      <p><strong>Core thesis:</strong> TCS is the only Indian IT company with the balance sheet depth, client breadth (62 clients >$100M), and AI infrastructure (HyperVault + OpenAI/AMD/ABB partnerships) to be a genuine AI transformation platform partner for global enterprises. At ₹110/share annual dividend and a 4.2% yield, you are being paid to wait for the re-rating.</p>
+      <div class="bull-bear">
+        <div class="bb-col bull"><h5>Bull Case</h5>
+          <ul>
+            <li>$12B TCV converts to 8–10% USD revenue growth in FY27–28</li>
+            <li>AI revenues cross $4–5B by FY28 — re-rates multiple to 24–26x</li>
+            <li>Margin expansion of 70bps in FY26 continues into FY27</li>
+            <li>Rupee depreciation = EPS tailwind worth ₹8–10/share annually</li>
+            <li>Europe revival (6.1% QoQ in Q4) signals geographic diversification</li>
+          </ul>
+        </div>
+        <div class="bb-col bear"><h5>Bear Case</h5>
+          <ul>
+            <li>13 consecutive quarters of near-zero growth in developed markets</li>
+            <li>AI headcount deflation hits high-margin application services</li>
+            <li>CSC legal dispute: $112M provided, further escalation possible</li>
+            <li>Q1FY27 wage hike impact: ~150–200 bps EBIT headwind</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STOCK 2: INFOSYS -->
+  <div class="stock-card">
+    <div class="stock-header">
+      <div>
+        <div class="stock-name">Infosys</div>
+        <div class="stock-sub">NSE: INFY · Large Cap · Tier-1 IT Services + AI</div>
+      </div>
+      <div class="stock-badge">
+        <div><span class="stock-rating buy">BUY</span></div>
+        <div class="stock-cmp">~₹1,420</div>
+        <div class="stock-target">3-yr target: ₹1,900–2,100 &nbsp;|&nbsp; 10-yr: ₹5,000+</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="stock-metrics">
+        <div class="metric"><div class="m-label">Mkt Cap</div><div class="m-val">₹5.9L Cr</div><div class="m-sub">Index weight ~21%</div></div>
+        <div class="metric"><div class="m-label">Fwd P/E</div><div class="m-val">22x</div><div class="m-sub">Moderate discount</div></div>
+        <div class="metric"><div class="m-label">EBIT Margin</div><div class="m-val">~20–21%</div><div class="m-sub">Guidance: 20–22%</div></div>
+        <div class="metric"><div class="m-label">FY27E Rev Gr</div><div class="m-val">2–5%</div><div class="m-sub">CC guidance</div></div>
+      </div>
+      <p>Infosys is our top large-cap Buy. The stock has multiple institutional catalysts converging: a partnership with Anthropic positioning it as the preferred enterprise AI deployment partner for Anthropic-powered solutions; the Versent acquisition adding AWS cloud expertise in a high-growth market; and BFSI vertical recovery underway — its largest single segment. Infosys has consistently delivered at the upper end of its guidance in good macro environments, and its asset-light model means incremental revenue growth drops through to margins efficiently.</p>
+      <p><strong>Core thesis:</strong> Infosys is uniquely positioned at the intersection of AI adoption and enterprise-scale transformation. Unlike TCS (breadth-first) or mid-tiers (niche), Infosys plays the transformation layer — the highest-value part of the AI services stack. Its FY27 guidance announcement on April 23 is a key near-term catalyst.</p>
+      <div class="bull-bear">
+        <div class="bb-col bull"><h5>Bull Case</h5>
+          <ul>
+            <li>Anthropic partnership = preferred partner for Claude enterprise deployments</li>
+            <li>FY27 guidance upgrade to 3–6% CC would trigger 10–15% re-rating</li>
+            <li>BFSI recovery: largest vertical showing discretionary spend revival</li>
+            <li>Versent acquisition: Australia/NZ AWS market at premium multiples</li>
+            <li>FCF yield of ~5% supports dividend + buyback capital return</li>
+          </ul>
+        </div>
+        <div class="bb-col bear"><h5>Bear Case</h5>
+          <ul>
+            <li>Daimler ramp-down: large deal ending creates FY27 revenue drag</li>
+            <li>Soft Q4FY26 patterns historically repeat at Infosys</li>
+            <li>AI-driven pricing pressure on its application maintenance portfolio</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STOCK 3: PERSISTENT SYSTEMS -->
+  <div class="stock-card">
+    <div class="stock-header">
+      <div>
+        <div class="stock-name">Persistent Systems</div>
+        <div class="stock-sub">NSE: PERSISTENT · Mid Cap · Digital Engineering + AI</div>
+      </div>
+      <div class="stock-badge">
+        <div><span class="stock-rating buy">BUY</span></div>
+        <div class="stock-cmp">~₹4,800</div>
+        <div class="stock-target">3-yr target: ₹7,500–8,000 &nbsp;|&nbsp; 10-yr: ₹18,000+</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="stock-metrics">
+        <div class="metric"><div class="m-label">Revenue CAGR</div><div class="m-val">~25%</div><div class="m-sub">FY22–FY26</div></div>
+        <div class="metric"><div class="m-label">Fwd P/E</div><div class="m-val">~28x</div><div class="m-sub">Justified by growth</div></div>
+        <div class="metric"><div class="m-label">FY26 Rev Gr</div><div class="m-val">~22%</div><div class="m-sub">Industry-leading</div></div>
+        <div class="metric"><div class="m-label">5-yr Return</div><div class="m-val">+420%</div><div class="m-sub">Best Nifty IT stock</div></div>
+      </div>
+      <p>Persistent is the single most compelling structural story in Indian IT. It has delivered ~25% revenue CAGR for four consecutive years — while Tier-1 peers struggled to hit 5%. Its competitive advantage is architectural: it operates as a digital engineering company rather than a body-shop, with product-led IP and a North America-heavy client base that prioritises AI-native solutions over legacy maintenance. The 5-year return of 420%+ is not an accident — it reflects a fundamentally different business model positioning.</p>
+      <p><strong>Core thesis:</strong> In a world where AI is raising the value of software engineering talent and compressing the value of IT maintenance, Persistent is on the right side of the trade. Its high-IP, engineering-first delivery model is exactly what enterprise clients need as they build AI-native product stacks. Multiple brokerages (CLSA: ₹8,058, Nirmal Bang: ₹6,977, JP Morgan: ₹6,000) converge on significant upside. We see 60–70% upside to ₹7,500–8,000 over 3 years, driven by 20%+ EPS CAGR.</p>
+      <div class="bull-bear">
+        <div class="bb-col bull"><h5>Bull Case</h5>
+          <ul>
+            <li>Digital engineering + AI services = structural demand acceleration</li>
+            <li>Analyst consensus: 20.1% earnings CAGR, 16.3% revenue CAGR FY26–28</li>
+            <li>Mid-market US client focus: less exposed to mega-deal freeze cycles</li>
+            <li>Q4FY26: led Tier-2 pack with ~4% CC QoQ growth</li>
+            <li>CLSA high conviction: ₹8,058 target (+68% upside)</li>
+          </ul>
+        </div>
+        <div class="bb-col bear"><h5>Bear Case</h5>
+          <ul>
+            <li>Premium valuation (28x) leaves little room for misses</li>
+            <li>North America concentration: ~75% of revenues</li>
+            <li>Ambit Capital: Sell call citing elevated ask rates</li>
+            <li>Smaller scale limits deal size in mega-deal cycles</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STOCK 4: HCL TECH -->
+  <div class="stock-card">
+    <div class="stock-header">
+      <div>
+        <div class="stock-name">HCL Technologies</div>
+        <div class="stock-sub">NSE: HCLTECH · Large Cap · IT Services + Products</div>
+      </div>
+      <div class="stock-badge">
+        <div><span class="stock-rating accumulate">ACCUMULATE</span></div>
+        <div class="stock-cmp">~₹1,380</div>
+        <div class="stock-target">3-yr target: ₹1,900–2,000 &nbsp;|&nbsp; 10-yr: ₹5,500+</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="stock-metrics">
+        <div class="metric"><div class="m-label">Fwd P/E</div><div class="m-val">~18x</div><div class="m-sub">Cheapest large cap</div></div>
+        <div class="metric"><div class="m-label">Products Share</div><div class="m-val">~20%</div><div class="m-sub">High-margin annuity</div></div>
+        <div class="metric"><div class="m-label">FY27 Rev Guid</div><div class="m-val">3–6%</div><div class="m-sub">Services CC growth</div></div>
+        <div class="metric"><div class="m-label">EBIT Margin</div><div class="m-val">17–18%</div><div class="m-sub">Guidance maintained</div></div>
+      </div>
+      <p>HCL Technologies is the most undervalued Tier-1 IT stock in India today. Trading at ~18x forward earnings — cheaper than TCS, cheaper than Infosys — HCL offers a unique product + services hybrid model that gives it a recurring revenue buffer that pure services companies lack. Its software products business (iCertis, Volt Active Data, DRYiCE) generates high-margin annuity income that is structurally insulated from AI deflation in services.</p>
+      <p><strong>Core thesis:</strong> HCL is being penalised for near-term margin headwinds (wage hikes, products business seasonality) that are cyclical, not structural. At 18x P/E on a business delivering 10%+ EPS CAGR with a products moat, the risk-reward is asymmetric. Margin guidance upgrade of 50bps for FY27 — expected at Q4 results on April 21 — is the near-term catalyst. HCL was the only Tier-1 IT to revise guidance upward in Q1FY26, reflecting management confidence.</p>
+      <div class="bull-bear">
+        <div class="bb-col bull"><h5>Bull Case</h5>
+          <ul>
+            <li>Cheapest Tier-1 on forward P/E — 14% discount to Infosys</li>
+            <li>Software products = AI-resilient recurring revenue (~20% mix)</li>
+            <li>Hi-tech vertical strength: one of only two companies growing here</li>
+            <li>FY27 margin upgrade expected: +50bps, most among Tier-1 peers</li>
+            <li>ABB partnership (alongside TCS) signals industrial IoT positioning</li>
+          </ul>
+        </div>
+        <div class="bb-col bear"><h5>Bear Case</h5>
+          <ul>
+            <li>Products business seasonality creates volatile quarterly margins</li>
+            <li>Q4FY26 margin contraction expected: ~140 bps QoQ (wage hikes)</li>
+            <li>Retail + auto verticals remain soft — 20%+ combined revenue exposure</li>
+            <li>JP Morgan: Neutral with revised TP of ₹1,410 (modest upside)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STOCK 5: COFORGE -->
+  <div class="stock-card">
+    <div class="stock-header">
+      <div>
+        <div class="stock-name">Coforge</div>
+        <div class="stock-sub">NSE: COFORGE · Mid Cap · BFS + Travel Tech + AI</div>
+      </div>
+      <div class="stock-badge">
+        <div><span class="stock-rating buy">BUY</span></div>
+        <div class="stock-cmp">~₹1,580</div>
+        <div class="stock-target">3-yr target: ₹2,800–3,200 &nbsp;|&nbsp; 10-yr: ₹8,000+</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="stock-metrics">
+        <div class="metric"><div class="m-label">Rev CAGR</div><div class="m-val">~18%</div><div class="m-sub">FY23–FY26</div></div>
+        <div class="metric"><div class="m-label">EPS CAGR (E)</div><div class="m-val">27.7%</div><div class="m-sub">FY26–28 consensus</div></div>
+        <div class="metric"><div class="m-label">Fwd P/E</div><div class="m-val">~20x</div><div class="m-sub">Cheap vs growth rate</div></div>
+        <div class="metric"><div class="m-label">5-yr Return</div><div class="m-val">+210%</div><div class="m-sub">vs Nifty IT +flat</div></div>
+      </div>
+      <p>Coforge is the most attractive risk-reward setup in Nifty IT right now. Trading at just 20x forward earnings against a 27.7% EPS CAGR estimate, the PEG ratio is below 1 — rare for a high-quality mid-cap tech company. Its BFSI and travel technology domain expertise gives it sticky, process-intensive client relationships that are difficult to disrupt with off-the-shelf AI. And its Q4FY26 deal wins in financial services and insurance mark a genuine acceleration cycle.</p>
+      <p><strong>Core thesis:</strong> Coforge is executing an aggressive yet disciplined M&A-led expansion — BFL Software, NIIT Technologies, SLK Global — building a portfolio that spans insurance tech, BPS, and financial services automation. This creates a compounding growth engine: organic revenue growth + inorganic expansion + AI-enabled productivity = 75–100% return potential over 3 years. CLSA maintains high-conviction Outperform with ₹2,278 target. Choice Broking has ₹2,000 target. Nuvama has ₹2,100 target. The consensus is convergent.</p>
+      <div class="bull-bear">
+        <div class="bb-col bull"><h5>Bull Case</h5>
+          <ul>
+            <li>27.7% EPS CAGR at 20x P/E = PEG < 1, exceptional value</li>
+            <li>BFSI + travel tech: domain depth creates pricing power</li>
+            <li>Q4FY26: 2% CC QoQ growth — among the best mid-tier performers</li>
+            <li>Margin expansion of ~160 bps QoQ in Q4 as wage headwinds ease</li>
+            <li>CLSA high conviction; Nuvama Buy; Choice TP ₹2,000</li>
+          </ul>
+        </div>
+        <div class="bb-col bear"><h5>Bear Case</h5>
+          <ul>
+            <li>Ambit caution: aggressive acquisition accounting risks</li>
+            <li>Integration risk from multiple acquisitions simultaneously</li>
+            <li>Travel tech vertical: geopolitical risk to airline/hospitality IT spend</li>
+            <li>JM Financial: cautious Add with ₹1,300 target</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY TABLE -->
+  <div class="section-label">04 · Portfolio Summary</div>
+  <h2>Stock Picks at a Glance</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Stock</th>
+        <th>Rating</th>
+        <th>CMP</th>
+        <th>3-yr Target</th>
+        <th>Upside</th>
+        <th>10-yr Vision</th>
+        <th>Key Thesis</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Infosys</strong></td>
+        <td><span class="tag-buy">BUY</span></td>
+        <td>~₹1,420</td>
+        <td>₹1,900–2,100</td>
+        <td><span class="upside-pill">+34–48%</span></td>
+        <td>₹5,000+</td>
+        <td>Anthropic AI partner; BFSI recovery; asset-light model</td>
+      </tr>
+      <tr>
+        <td><strong>Persistent Systems</strong></td>
+        <td><span class="tag-buy">BUY</span></td>
+        <td>~₹4,800</td>
+        <td>₹7,500–8,000</td>
+        <td><span class="upside-pill">+56–67%</span></td>
+        <td>₹18,000+</td>
+        <td>Digital engineering + AI native; 20%+ EPS CAGR</td>
+      </tr>
+      <tr>
+        <td><strong>Coforge</strong></td>
+        <td><span class="tag-buy">BUY</span></td>
+        <td>~₹1,580</td>
+        <td>₹2,800–3,200</td>
+        <td><span class="upside-pill">+77–102%</span></td>
+        <td>₹8,000+</td>
+        <td>27.7% EPS CAGR at <1x PEG; BFSI + travel domain moat</td>
+      </tr>
+      <tr>
+        <td><strong>TCS</strong></td>
+        <td><span class="tag-acc">ACCUM.</span></td>
+        <td>₹2,588</td>
+        <td>₹3,400–3,600</td>
+        <td><span class="upside-pill">+31–39%</span></td>
+        <td>₹7,000+</td>
+        <td>$12B TCV; $2.3B AI revenue; 4.2% dividend floor</td>
+      </tr>
+      <tr>
+        <td><strong>HCL Technologies</strong></td>
+        <td><span class="tag-acc">ACCUM.</span></td>
+        <td>~₹1,380</td>
+        <td>₹1,900–2,000</td>
+        <td><span class="upside-pill">+38–45%</span></td>
+        <td>₹5,500+</td>
+        <td>Cheapest Tier-1; products moat; margin upgrade catalyst</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:8px;"><em>Suggested portfolio weight:</em> Persistent 25% · Coforge 20% · Infosys 20% · TCS 20% · HCL Tech 15%. Re-weight toward TCS and Infosys as portfolio size exceeds ₹25L (liquidity + volatility management). For 10-year horizon, maintain core Persistent + Coforge positions untouched; add on every 15–20% drawdown.</p>
+
+  <!-- RISK SECTION -->
+  <div class="section-label">05 · Risk Framework</div>
+  <h2>Risks to Monitor</h2>
+
+  <div class="risk-grid">
+    <div class="risk-card">
+      <h5>AI Deflation Faster Than Expected</h5>
+      <p>If GenAI compresses IT services pricing by 5–8% annually (vs modelled 2–3%), revenue deflation could materially delay the earnings recovery cycle to FY30+.</p>
+    </div>
+    <div class="risk-card">
+      <h5>US Recession Risk</h5>
+      <p>A hard landing in the US economy would trigger a second wave of IT budget freezes. Historically, a recession cuts Indian IT sector EPS by 15–20% in the first year.</p>
+    </div>
+    <div class="risk-card">
+      <h5>West Asia Conflict Escalation</h5>
+      <p>Direct revenue exposure is low (single digits), but a prolonged conflict could spike oil, raise global inflation, and delay the Fed's cutting cycle — compressing IT multiples.</p>
+    </div>
+    <div class="risk-card">
+      <h5>Visa & Protectionism</h5>
+      <p>Structural reversal of offshoring policy in the US or EU would raise onsite delivery costs by 40–60%, permanently compressing margins for large-cap firms.</p>
+    </div>
+    <div class="risk-card">
+      <h5>Competition from Hyperscalers</h5>
+      <p>AWS, Google Cloud, and Microsoft Azure are increasingly offering managed AI services that disintermediate Indian IT in cloud migration and AI deployment work.</p>
+    </div>
+    <div class="risk-card">
+      <h5>Talent Attrition & Cost Inflation</h5>
+      <p>Senior-level attrition remains elevated as AI-skilled professionals are poached by GCCs and startups. Wage inflation for AI talent could compress margins beyond guidance.</p>
+    </div>
+  </div>
+
+  <!-- HORIZON SUMMARY -->
+  <div class="section-label">06 · Time Horizon Framework</div>
+  <h2>How to Think About Each Horizon</h2>
+
+  <h3>3-Year Horizon (FY26–FY29) <span class="horizon-pill">Near-term tactical</span></h3>
+  <p>The primary driver is valuation re-rating from 17.8x to 22–24x fwd P/E, as FY27 deal ramp-ups convert to visible revenue growth and AI deflation fears are absorbed. Earnings recovery (10.8% EPS CAGR sector-wide) provides the fundamental underpinning. Target: Nifty IT at 46,000–52,000, implying +46–65% from current 31,400. Stock-specific catalysts: Infosys FY27 guidance (April 23), HCL Tech margin upgrade (April 21), TCS Q1FY27 deal ramp confirmation (July 2026).</p>
+
+  <h3>10-Year Horizon (FY26–FY36) <span class="horizon-pill">Structural compounder</span></h3>
+  <p>The 10-year thesis rests on three structural pillars: (1) India's technology sector growing from $315B today to $800B–1T by FY35, driven by AI services, GCCs reaching $110B, and ER&D doubling; (2) Indian IT firms evolving from service providers to IP owners — owning AI models, platforms, and products that earn royalties and license revenue in addition to headcount-linked services; (3) India's demographic dividend providing 15+ years of talent cost advantage, reinforced by AI-human collaboration roles that India's engineering culture is uniquely suited to. At a 13% CAGR, Nifty IT reaches 1,10,000 by FY36 — a 3.5x from today. In an upside scenario (15% CAGR), it reaches 1,30,000. This is the compounding thesis for patient capital.</p>
+
+  <hr class="rule">
+
+  <div class="disclaimer">
+    DISCLAIMER: This report is produced for informational and educational purposes only. It does not constitute investment advice, a solicitation, or an offer to buy or sell securities. All opinions, estimates, and forecasts expressed herein are those of the analyst and are subject to change without notice. Past performance is not indicative of future results. Investing in equities involves substantial risk including possible loss of principal. Stock prices, valuations, and target prices referenced herein are as of April 9, 2026 and may have changed materially. This report is not registered with SEBI as investment advice. Readers are advised to conduct their own due diligence or consult a qualified SEBI-registered investment advisor before making any investment decisions. This is an independent analyst view, not affiliated with any brokerage, fund house, or financial institution.
+  </div>
+
+</div>
+</body>
+</html>
